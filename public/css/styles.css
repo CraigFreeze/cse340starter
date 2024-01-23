@@ -1,6 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&family=Merriweather:wght@400;700&display=swap');
+
 /******* Change Box Model ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+:root {
+  --emphasis-color: #01B0D3;
+  --emphasis-text: #0BBADB;
+}
+
+
+/******* Header ***************/
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0 1.5rem 0;
+  font-family: 'Kumbh Sans', sans-serif;
+}
+
+.siteName {
+  font-size: 2rem;
+}
+
+#tools a {
+  font-size: .85rem;
+}
+
+#top-header a{
+  text-decoration: none;
+  color: black;
+}
+
+/******* Navigation ***************/
+nav {
+  font-family: 'Kumbh Sans', sans-serif;
+}
+
+nav ul{
+  padding: 0px;
+  margin: 0px;
+  background-color: black;
+  display: flex;
+  justify-content: space-evenly;
+  list-style-type: none;
+}
+
+nav ul li {
+  color: white;
+  padding: .5rem;
+}
+
+nav ul li:hover{
+  background-color: white;
+  color: black;
+}
+
+/******* Index ***************/
+main{
+  font-family: 'Merriweather', serif;
+  font-size: .9rem;
+}
+
+/* Hero */
+section.hero-container {
+  width: 100%;
+  height: 10rem;
+  background-image: url("/images/vehicles/delorean.jpg") !important;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+}
+
+section.hero-container .hero-text{
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  z-index: 2;
+  padding: 0 1rem .25rem 0;
+}
+
+section.hero-container div h2{
+  margin: 0px;
+  color: var(--emphasis-text);
+  font-size: 1.2rem;
+}
+
+section.hero-container ul{
+  list-style-type: none;
+  margin: 0px 0px 5px 0px;
+  padding: 0px;
+  color: var(--emphasis-text);
+}
+
+section.hero-container div .cta{
+  text-decoration: none;
+  font-size: 1rem;
+  background-color: var(--emphasis-color);
+  color: black;
+  padding: .25rem;
+  font-weight: 700;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 5px 0px, rgba(0, 0, 0, 0.4) 0px 0px 1px 0px;
+}
+
+/* Upgrades */
+.upgrades-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: .5rem;
+}
+
+.upgrades-container h2{
+  grid-column: span 2;
+}
+
+.upgrades{
+  margin-bottom: 1.5rem;
+}
+
+.upgrades > div {
+  background-color: var(--emphasis-color);
+  border: 1px solid black;
+  height: 5rem;
+}
+
+.upgrades div img {
+  display: block;
+  margin: .2rem auto;
+}
+
+.upgrades a {
+  display: block;
+  text-align: center;
+}
+
+/* Reveiws */
+.reviews-container ul li {
+  padding: .5rem 0;
+}
+
+/******* Footer ***************/
+footer {
+  font-family: 'Kumbh Sans', sans-serif;
+}
+
+footer p{
+  margin: 1.5rem 0 0 0;
+}
+
+
+
+/******* For Laptops and Larger ***************/
+@media screen and (min-width: 700px) {
+  body {
+    background-image: url("/images/site/small_check.jpg");
+    background-repeat: repeat-x;
+    background-size: cover;
+    background-position: center;
+  }
+  /* Background and Wrapper */
+  #wrapper{
+    max-width: 700px;
+    margin: 1rem auto;
+    padding: .5rem;
+    border: 5px solid var(--emphasis-text);
+    border-radius: .5rem;
+    background-color: white;
+  }
+
+  /* Grid Layout */
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  h1 {
+    grid-column: 1 / -1;
+  }
+  .hero-container {
+    grid-column: 1 / -1;
+    }
+  .reviews-container, .upgrades-container{
+    grid-column: span 1;
+  }
+  .reviews-container{
+    order: 2;
+  }
+
+  /* Hero Image Size */
+  .hero-container {
+    padding: 7rem;
+    background-image: url("/images/vehicles/delorean.jpg");
+  }
+
+  section.hero-container .hero-text{
+    left: 2rem;
+    top: 0;
+    height: 100%;
+  }
+
+  section.hero-container div h2{
+    font-size: 1.5rem;
+  }
+  
+  section.hero-container ul{
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+  }
+  
+  section.hero-container div .cta{
+    font-size: 1rem;
+    padding: .5rem 1.25rem;
+  }
 }
