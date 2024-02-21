@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    '<h1>'
+        vehicle.inv_year + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model
+    '</h1>'
+    <img src="' + vehicle.inv_image
+        + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
+        + ' on CSE Motors">
+    <h3>
+        vehicle.inv_make + ' ' + vehicle.inv_model + 'Details'
+    </h3>
+    <ul>
+        <li><h4>
+            'Price: $' +
+            (vehicle.inv_price).toLocaleString( undefined, { minimumFractionDigits: 2 });
+        </h4></li>
+        <li>
+            <h4>Description:</h4>
+            + inv_description
+        </li>
+        <li>
+            <h4>Color</h4>
+            + inv_color
+        </li>
+        <li>
+            <h4>Miles</h4>
+            + (inv_miles).toLocaleString( undefined, { minimumFractionDigits: 2 });
+        </li>
+    </ul>
+</body>
+</html>

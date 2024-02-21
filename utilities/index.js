@@ -37,9 +37,9 @@ Util.buildClassificationGrid = async function (data) {
         + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model
         + 'details"><img src="' + vehicle.inv_thumbnail
         + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
-        + ' on CSE Motors" /></a>'
+        + ' on CSE Motors"></a>'
       grid += '<div class="namePrice">'
-      grid += '<hr />'
+      grid += '<hr>'
       grid += '<h2>'
       grid += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View '
         + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
@@ -55,6 +55,31 @@ Util.buildClassificationGrid = async function (data) {
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
   return grid
+}
+
+Util.buildVehicleDetails = async function (data) {
+  let details
+  details =
+    '<img src="' +
+    data.inv_image +
+    '" alt="Image of ' +
+    data.inv_make +
+    ' ' +
+    data.inv_model +
+    ' on CSE Motors"><h3>' +
+    data.inv_make +
+    ' ' +
+    data.inv_model +
+    ' Details</h3><ul><li><h4>Price: $' +
+    (Number(data.inv_price)).toLocaleString(undefined) +
+    '</h4></li><li><h4>Description:</h4>' +
+    data.inv_description +
+    '</li><li><h4>Color</h4>' +
+    data.inv_color +
+    '</li><li><h4>Miles</h4>' +
+    (data.inv_miles).toLocaleString(undefined) +
+    '</li></ul>'
+  return details
 }
 
 /* ****************************************
