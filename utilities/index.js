@@ -60,25 +60,25 @@ Util.buildClassificationGrid = async function (data) {
 Util.buildVehicleDetails = async function (data) {
   let details
   details =
-    '<img src="' +
+    '<img id="vehicle-image" src="' +
     data.inv_image +
     '" alt="Image of ' +
     data.inv_make +
     ' ' +
     data.inv_model +
-    ' on CSE Motors"><h3>' +
+    ' on CSE Motors"><section id="vehicle-details"><h3>' +
     data.inv_make +
     ' ' +
     data.inv_model +
     ' Details</h3><ul><li><h4>Price: $' +
     (Number(data.inv_price)).toLocaleString(undefined) +
-    '</h4></li><li><h4>Description:</h4>' +
+    '</h4></li><li><span>Description: </span>' +
     data.inv_description +
-    '</li><li><h4>Color</h4>' +
+    '</li><li><span>Color: </span>' +
     data.inv_color +
-    '</li><li><h4>Miles</h4>' +
+    '</li><li><span>Miles: </span>' +
     (data.inv_miles).toLocaleString(undefined) +
-    '</li></ul>'
+    '</li></ul></section>'
   return details
 }
 
