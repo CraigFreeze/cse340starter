@@ -219,7 +219,7 @@ img#vehicle-image {
 }
 
 #vehicle-details h3 {
-  padding-left: 1rem;
+  padding-left: .5rem;
 }
 
 #vehicle-details h4 {
@@ -228,6 +228,7 @@ img#vehicle-image {
 
 #vehicle-details ul {
   list-style-type: none;
+  padding: 0 0 0 .5rem;
 }
 
 #vehicle-details ul li {
@@ -245,6 +246,15 @@ img#vehicle-image {
 #vehicle-image,
 #vehicle-details {
   grid-column: 1 / -1;
+}
+
+/********* Footer **********/
+footer {
+  margin-top: 1rem;
+}
+
+footer p {
+  margin: 0;
 }
 
 /******* For Laptops and Larger ***************/
