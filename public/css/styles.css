@@ -149,6 +149,12 @@ section.hero-container div .cta {
   padding: .5rem 0;
 }
 
+/****** Message ***********/
+.notice li,
+.error li {
+  color: red;
+}
+
 /******* Footer ***************/
 footer {
   font-family: 'Kumbh Sans', sans-serif;
@@ -243,9 +249,8 @@ img#vehicle-image {
   font-weight: 700;
 }
 
-#vehicle-image,
-#vehicle-details {
-  grid-column: 1 / -1;
+.splitGrid {
+  display: block;
 }
 
 /********* Footer **********/
@@ -276,21 +281,9 @@ footer p {
   }
 
   /* Grid Layout */
-  main {
+  .splitGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-
-  h1,
-  .hero-container {
-    grid-column: 1 / -1;
-  }
-
-  .reviews-container,
-  .upgrades-container,
-  #vehicle-image,
-  #vehicle-details {
-    grid-column: span 1;
   }
 
   .reviews-container {
@@ -324,11 +317,86 @@ footer p {
   }
 }
 
-/******* Error Page ***************/
-.error-content {
-  grid-column: 1 / -1;
+/****** FORM Styling ******************/
+form fieldset {
+  width: 80%;
+  margin: 0 auto;
+  border: #01B0D3 solid 10px;
+  border-radius: 1rem;
+  background-color: azure;
 }
 
+form fieldset>* {
+  display: block;
+  width: 100%;
+}
+
+form fieldset input {
+  margin-bottom: 1rem;
+}
+
+/* CSS */
+form fieldset button {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #018dd3;
+  border-radius: 10px;
+  border-style: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  height: 40px;
+  letter-spacing: normal;
+  line-height: 1.5;
+  outline: none;
+  overflow: hidden;
+  padding: 7px 15px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+form fieldset button:hover {
+  background-color: #1366d6;
+  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+form fieldset button:after {
+  opacity: .5;
+}
+
+form fieldset button:active {
+  box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+form fieldset button:active:after {
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  form fieldset button {
+    padding: 7px 11px;
+    width: 100px;
+  }
+}
+
+/******* Error Page ***************/
 .error-content,
 #error-poem {
   text-align: center;

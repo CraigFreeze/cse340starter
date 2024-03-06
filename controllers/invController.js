@@ -34,4 +34,65 @@ invCont.buildByInvId = async function (req, res, next) {
   })
 }
 
+/* ***************************
+ *  Build Management view
+ * ************************** */
+invCont.buildManagement = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+    title: "Vehicle Management",
+    nav
+  })
+}
+
+/* ***************************
+ *  Build Add Classification view
+ * ************************** */
+invCont.buildAddClassification = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/add-classification", {
+    title: "Add Classification",
+    nav
+  })
+}
+
+/* ****************************************
+*  Process add Classification
+* *************************************** */
+invCont.addClassification = async function (req, res, next) {
+  const { classification_name } = req.body
+
+  const regResult = await invModel.addClassification(classification_name)
+
+  let nav = await utilities.getNav()
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `You've successfully added ${classification_name}.`
+    )
+    res.status(201).render("./inv/management", {
+      title: "Vehicle Management",
+      nav,
+    })
+  } else {
+    req.flash("notice", "Sorry, the registration failed.")
+    res.status(501).render("./inventory/add-classification", {
+      title: "Add Classification",
+      nav
+    })
+  }
+}
+
+/* ***************************
+ *  Build Add-Inventory view
+ * ************************** */
+invCont.buildAddInventory = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/add-inventory", {
+    title: "Add Inventory",
+    nav
+  })
+}
+
 module.exports = invCont

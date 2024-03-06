@@ -1,0 +1,23 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+        <%- messages() %>
+
+            <form action="/" id="registerForm">
+                <fieldset>
+                    <p>All fields are required.</p>
+                    <label for="account_email">Email Address:</label>
+                    <input type="email" name="account_email" required>
+
+                    <label for="account_password">Password:</label>
+                    <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                        name="account_password" required>
+                    <p>Minimum eight characters, at least one letter, one number and one special character:</p>
+
+
+                    <button type="submit">Login</button>
+                    <p class="psw">No account? <a href="/account/register">Sign-up</a></p>
+                </fieldset>
+            </form>
