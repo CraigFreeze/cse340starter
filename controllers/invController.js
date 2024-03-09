@@ -60,24 +60,36 @@ invCont.buildAddClassification = async function (req, res, next) {
 *  Process add Classification
 * *************************************** */
 invCont.addClassification = async function (req, res, next) {
+  let nav = await utilities.getNav() //consider moving this after the regResult
+  
+  console.log("req.body!!!!!!!!!!!!!!")
+  console.log(req.body)
+  
   const { classification_name } = req.body
 
   const regResult = await invModel.addClassification(classification_name)
 
-  let nav = await utilities.getNav()
+  console.log("reg Results:")
+  console.log(regResult);
 
   if (regResult) {
+    console.log("Option 1")
+
     req.flash(
       "notice",
       `You've successfully added ${classification_name}.`
     )
-    res.status(201).render("./inv/management", {
+    console.log("Option 1.1")
+    res.status(201).render("inv/management", {
       title: "Vehicle Management",
       nav,
     })
+    console.log("Option 1.2")
   } else {
+    console.log("Option 2")
+
     req.flash("notice", "Sorry, the registration failed.")
-    res.status(501).render("./inventory/add-classification", {
+    res.status(501).render("inventory/add-classification", {
       title: "Add Classification",
       nav
     })
