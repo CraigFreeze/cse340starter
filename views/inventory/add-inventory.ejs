@@ -18,42 +18,46 @@
                     <form action="/inv/add-inventory" method="post" id="addInventoryForm">
                         <fieldset>
                             <p>All fields are required.</p>
-                            <label for="classification_name">Classification</label>
+                            <label for="classification_id">Classification</label>
                             <%- selectClassification %>
 
                                 <label for="inv_make">Make</label>
                                 <input type="text" name="inv_make" pattern="[A-Za-z0-9]{3,}" id="inv_make"
-                                    placeholder="Min of 3 characters" required>
+                                    value="<%= locals.inv_make %>" placeholder="Min of 3 characters" required>
 
                                 <label for="inv_model">Model</label>
                                 <input type="text" name="inv_model" pattern="[A-Za-z0-9]{3,}" id="inv_model"
-                                    placeholder="Min of 3 characters" required>
+                                    value="<%= locals.inv_model %>" placeholder="Min of 3 characters" required>
 
                                 <label for="inv_description">Description</label>
-                                <input type="text" name="inv_description" id="inv_description" required>
+                                <input type="text" name="inv_description" id="inv_description"
+                                    value="<%= locals.inv_description %>" required>
 
                                 <label for="inv_image">Image Path</label>
-                                <input type="text" name="inv_image" id="inv_image" value="images/vehicles/no-image.png"
+                                <input type="text" name="inv_image" id="inv_image" value="/images/vehicles/no-image.png"
                                     required>
 
                                 <label for="inv_thumbnail">Thumbnail Path</label>
                                 <input type="text" name="inv_thumbnail" id="inv_thumbnail"
-                                    value="images/vehicles/no-image.png" required>
+                                    value="/images/vehicles/no-image.png" required>
 
                                 <label for="inv_price">Price</label>
                                 <!-- ([0-9]*[\.]{0,1}[0-9]{0,2}) -->
                                 <input type="text" name="inv_price" pattern="^[1-9]\d*(\.\d+)?$"
-                                    id="inv_price" placeholder="decimal or integer" required>
+                                    value="<%= locals.inv_price %>" id="inv_price" placeholder="decimal or integer"
+                                    required>
 
                                 <label for="inv_year">Year</label>
                                 <input type="text" name="inv_year" pattern="^\d{4}$" id="inv_year"
-                                    placeholder="4-digit year" maxlength="4" required>
+                                    value="<%= locals.inv_year %>" placeholder="4-digit year" maxlength="4" required>
 
                                 <label for="inv_miles">Miles</label>
-                                <input type="number" name="inv_miles" id="inv_miles" placeholder="digits only" required>
+                                <input type="number" name="inv_miles" id="inv_miles" placeholder="digits only"
+                                    value="<%= locals.inv_miles %>" required>
 
                                 <label for="inv_color">Color</label>
-                                <input type="text" name="inv_color" id="inv_color" required>
+                                <input type="text" name="inv_color" id="inv_color" value="<%= locals.inv_color %>"
+                                    required>
                                 <p>Alphabetic Characters Only</p>
 
                                 <button type="submit">Add Vehicle</button>

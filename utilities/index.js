@@ -87,7 +87,7 @@ Util.buildVehicleDetails = async function (data) {
  ************************** */
 Util.selectClassification = async function (req, res, next) {
   let data = await invModel.getClassifications()
-  let list = `<select name="classification_id" id="classification_id">`
+  let list = `<select name="classification_id" id="classification_id" value="<%= locals.classification_id %>">`
   // list += '<option value="">SELECT<option>'
   data.rows.forEach((row) => {
     list += "<option "

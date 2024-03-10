@@ -60,7 +60,7 @@ invCont.buildAddClassification = async function (req, res, next) {
 /* ****************************************
 *  Process add Classification
 * *************************************** */
-invCont.addClassification = async function (req, res, next) {  
+invCont.addClassification = async function (req, res, next) {
   // DELETE FROM public.classification WHERE classification_id > 5;
   // Use this ^^^ to reset classifications.
 
@@ -106,4 +106,39 @@ invCont.buildAddInventory = async function (req, res, next) {
   })
 }
 
+
+/* ****************************************
+*  Process add Inventory
+* *************************************** */
+invCont.addInventory = async function (req, res, next) {
+  // DELETE FROM public.classification WHERE classification_id > 5;
+  // Use this ^^^ to reset classifications.
+
+  const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
+
+  const invResult = await invModel.addInventory(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id)
+
+  let nav = await utilities.getNav() //consider moving this after the regResult
+  let selectClassification = await utilities.selectClassification()
+  if (invResult) {
+    req.flash(
+      "notice",
+      `You've successfully added this new make: ${inv_make}.`
+    )
+    res.status(201).render("./inventory/management", {
+      title: "Vehicle Management",
+      nav,
+      errors: null,
+    })
+  } else {
+
+    req.flash("notice", "Sorry, the inventory addition failed.")
+    res.status(501).render("./inventory/add-inventory", {
+      title: "Add Inventory",
+      selectClassification,
+      nav,
+      errors: null,
+    })
+  }
+}
 module.exports = invCont

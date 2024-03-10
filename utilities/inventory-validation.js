@@ -50,110 +50,53 @@ validate.inventoryRules = () => {
     return [
         body("inv_make") //! Replace with database fields
             .trim()
-            .isLength({ min: 1 })
-            .withMessage("Please Provide a Classification.") //! Replace with a better message
-            .isAlpha()
-            .custom(async (classification_name) => {
-                const classificationExists = await invModel.checkExistingClassification(classification_name)
-                if (classificationExists) {
-                    throw new Error("Classification exists. Please use the existing Classification or create a new one.")
-                }
-            }),
+            .isLength({ min: 3 })
+            .isAlphanumeric()
+            .withMessage("Please Provide a make."), //! Replace with a better message
 
         body("inv_model") //! Replace with database fields
             .trim()
-            .isLength({ min: 1 })
-            .withMessage("Please Provide a Classification.") //! Replace with a better message
-            .isAlpha()
-            .custom(async (classification_name) => {
-                const classificationExists = await invModel.checkExistingClassification(classification_name)
-                if (classificationExists) {
-                    throw new Error("Classification exists. Please use the existing Classification or create a new one.")
-                }
-            }),
+            .isLength({ min: 3 })
+            .isAlphanumeric()
+            .withMessage("Please Provide a model."), //! Replace with a better message
 
         body("inv_year") //! Replace with database fields
             .trim()
-            .isLength({ min: 1 })
-            .withMessage("Please Provide a Classification.") //! Replace with a better message
-            .isAlpha()
-            .custom(async (classification_name) => {
-                const classificationExists = await invModel.checkExistingClassification(classification_name)
-                if (classificationExists) {
-                    throw new Error("Classification exists. Please use the existing Classification or create a new one.")
-                }
-            }),
+            .isLength(4)
+            .withMessage("Please Provide a year.") //! Replace with a better message
+            .isNumeric(),
 
         body("inv_description") //! Replace with database fields
             .trim()
             .isLength({ min: 1 })
-            .withMessage("Please Provide a Classification.") //! Replace with a better message
-            .isAlpha()
-            .custom(async (classification_name) => {
-                const classificationExists = await invModel.checkExistingClassification(classification_name)
-                if (classificationExists) {
-                    throw new Error("Classification exists. Please use the existing Classification or create a new one.")
-                }
-            }),
+            .withMessage("Please Provide a description."), //! Replace with a better message
 
         body("inv_image") //! Replace with database fields
             .trim()
-            .withMessage("Please Provide a Classification.") //! Replace with a better message
-            .isAlpha()
-            .custom(async (classification_name) => {
-                const classificationExists = await invModel.checkExistingClassification(classification_name)
-                if (classificationExists) {
-                    throw new Error("Classification exists. Please use the existing Classification or create a new one.")
-                }
-            }),
+            .isLength({ min: 1 })
+            .withMessage("Please Provide a image path."), //! Replace with a better message
 
         body("inv_thumbnail") //! Replace with database fields
             .trim()
             .isLength({ min: 1 })
-            .withMessage("Please Provide a Classification.") //! Replace with a better message
-            .isAlpha()
-            .custom(async (classification_name) => {
-                const classificationExists = await invModel.checkExistingClassification(classification_name)
-                if (classificationExists) {
-                    throw new Error("Classification exists. Please use the existing Classification or create a new one.")
-                }
-            }),
+            .withMessage("Please Provide a thumbnail path."), //! Replace with a better message,
 
         body("inv_price") //! Replace with database fields
             .trim()
             .isLength({ min: 1 })
-            .withMessage("Please Provide a Classification.") //! Replace with a better message
-            .isAlpha()
-            .custom(async (classification_name) => {
-                const classificationExists = await invModel.checkExistingClassification(classification_name)
-                if (classificationExists) {
-                    throw new Error("Classification exists. Please use the existing Classification or create a new one.")
-                }
-            }),
+            .withMessage("Please Provide a price."), //! Replace with a better message
 
         body("inv_color") //! Replace with database fields
             .trim()
             .isLength({ min: 1 })
-            .withMessage("Please Provide a Classification.") //! Replace with a better message
             .isAlpha()
-            .custom(async (classification_name) => {
-                const classificationExists = await invModel.checkExistingClassification(classification_name)
-                if (classificationExists) {
-                    throw new Error("Classification exists. Please use the existing Classification or create a new one.")
-                }
-            }),
+            .withMessage("Please Provide a color."), //! Replace with a better message
 
         body("classification_id") //! Replace with database fields
             .trim()
             .isLength({ min: 1 })
+            .isNumeric()
             .withMessage("Please Provide a Classification.") //! Replace with a better message
-            .isAlpha()
-            .custom(async (classification_name) => {
-                const classificationExists = await invModel.checkExistingClassification(classification_name)
-                if (classificationExists) {
-                    throw new Error("Classification exists. Please use the existing Classification or create a new one.")
-                }
-            })
     ]
 }
 
@@ -162,7 +105,7 @@ validate.inventoryRules = () => {
  * Check data and return errors or continue to registration
  * ***************************** */
 validate.checkInvVehicleData = async (req, res, next) => {
-    const { inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
+    const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -177,8 +120,8 @@ validate.checkInvVehicleData = async (req, res, next) => {
             inv_model,
             inv_year,
             inv_description,
-            inv_image,
-            inv_thumbnail,
+            // inv_image,
+            // inv_thumbnail,
             inv_price,
             inv_miles,
             inv_color,
@@ -186,7 +129,7 @@ validate.checkInvVehicleData = async (req, res, next) => {
         })
         return
     }
-    next()
+    next() //! Maybe get rid of this
 }
 
 module.exports = validate
