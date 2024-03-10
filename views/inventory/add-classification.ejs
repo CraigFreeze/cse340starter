@@ -4,15 +4,25 @@
     </h1>
     <% } else { res.redirect('/') } %>
 
-    <%- messages() %>
+        <%- messages() %>
+            <% if (errors) { %>
+                <ul class="notice">
+                    <% errors.array().forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
 
-            <form action="/inv/add-classification" method="post" id="addClassificiationForm">
-                <fieldset>
-                    <p>All fields are required.</p>
-                    <label for="classification_name">Classification Name</label>
-                    <input type="text" name="classification_name" pattern="[A-Za-z]+" id="classification_name" required>
-                    <p>Alphabetic Characters Only</p>
+                    <form action="/inv/add-classification" method="post" id="addClassificiationForm">
+                        <fieldset>
+                            <p>All fields are required.</p>
+                            <label for="classification_name">Classification Name</label>
+                            <input type="text" name="classification_name" pattern="[A-Za-z]+" id="classification_name"
+                                value="<%= locals.classification_name %>" required>
+                            <p>Alphabetic Characters Only</p>
 
-                    <button type="submit">Add</button>
-                </fieldset>
-            </form>
+                            <button type="submit">Add</button>
+                        </fieldset>
+                    </form>

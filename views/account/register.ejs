@@ -4,25 +4,40 @@
     </h1>
     <% } else { res.redirect('/') } %>
         <%- messages() %>
+            <% if (errors) { %>
+                <ul class="notice">
+                    <% errors.array().forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
 
-            <form action="/account/register" method="post" id="registerForm">
-                <fieldset>
-                    <p>All fields are required.</p>
-                    <label for="account_firstname">First name:</label>
-                    <input type="text" name="account_firstname" required>
+                    <form action="/account/register" method="post" id="registerForm">
+                        <fieldset>
+                            <p>All fields are required.</p>
+                            <label for="account_firstname">First name:</label>
+                            <input type="text" name="account_firstname" id="accountFirstname" required
+                                value="<%= locals.account_firstname %>">
 
-                    <label for="account_lastname">Last name:</label>
-                    <input type="text" name="account_lastname" required>
+                            <label for="account_lastname">Last name:</label>
+                            <input type="text" name="account_lastname" id="account_lastname" required
+                                value="<%= locals.account_lastname %>">
 
-                    <label for="account_email">Email Address:</label>
-                    <input type="email" name="account_email" required>
+                            <label for="account_email">Email Address:</label>
+                            <input type="email" name="account_email" id="account_email" required
+                                value="<%= locals.account_email %>">
 
-                    <label for="account_password">Password:</label>
-                    <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
-                        name="account_password" required>
-                    <p>Minimum eight characters, at least one letter, one number and one special character:</p>
+                            <label for="account_password">Password:</label>
+                            <input type="password"
+                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                                name="account_password" required>
+                            <p>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter
+                                and 1
+                                special character</p>
 
-                    <button type="submit">Login</button>
+                            <button type="submit">Register</button>
 
-                </fieldset>
-            </form>
+                        </fieldset>
+                    </form>

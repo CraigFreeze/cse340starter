@@ -52,7 +52,8 @@ invCont.buildAddClassification = async function (req, res, next) {
   let nav = await utilities.getNav()
   res.render("./inventory/add-classification", {
     title: "Add Classification",
-    nav
+    nav,
+    errors: null,
   })
 }
 
@@ -70,20 +71,23 @@ invCont.addClassification = async function (req, res, next) {
   let nav = await utilities.getNav() //consider moving this after the regResult
 
   if (regResult) {
-    res.status(201).render("./inventory/management", {
-      title: "Vehicle Management",
-      nav,
-    })
     req.flash(
       "notice",
       `You've successfully added ${classification_name}.`
     )
+    res.status(201).render("./inventory/management", {
+      title: "Vehicle Management",
+      nav,
+      errors: null,
+    })
   } else {
+
+    req.flash("notice", "Sorry, the registration failed.")
     res.status(501).render("./inventory/add-classification", {
       title: "Add Classification",
-      nav
+      nav,
+      errors: null,
     })
-    req.flash("notice", "Sorry, the registration failed.")
   }
 }
 
@@ -92,9 +96,13 @@ invCont.addClassification = async function (req, res, next) {
  * ************************** */
 invCont.buildAddInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
+  let selectClassification = await utilities.selectClassification()
+  console.log(selectClassification)
   res.render("./inventory/add-inventory", {
     title: "Add Inventory",
-    nav
+    nav,
+    selectClassification,
+    errors: null,
   })
 }
 

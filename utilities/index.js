@@ -82,6 +82,26 @@ Util.buildVehicleDetails = async function (data) {
   return details
 }
 
+/* ************************
+ * Constructs the classification select list
+ ************************** */
+Util.selectClassification = async function (req, res, next) {
+  let data = await invModel.getClassifications()
+  let list = `<select name="classification_id" id="classification_id">`
+  // list += '<option value="">SELECT<option>'
+  data.rows.forEach((row) => {
+    list += "<option "
+    list +=
+      'value = "' +
+      row.classification_id +
+      '">' +
+      row.classification_name +
+      '</option>'
+  })
+  list += "</select>"
+  return list
+}
+
 /* ****************************************
 * Middleware For Handling Errors
 * Wrap other function in this for 

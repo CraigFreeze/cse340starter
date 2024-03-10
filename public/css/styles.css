@@ -389,6 +389,16 @@ form fieldset button:active:after {
   opacity: 1;
 }
 
+input:required:invalid,
+input:focus:invalid {
+  background-color: rgb(234, 200, 195);
+}
+
+input:required:valid {
+  background-color: rgb(197, 239, 197);
+
+}
+
 @media (min-width: 768px) {
   form fieldset button {
     padding: 7px 11px;
