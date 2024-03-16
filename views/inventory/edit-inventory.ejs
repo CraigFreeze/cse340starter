@@ -15,7 +15,7 @@
                         <% }) %>
                 </ul>
                 <% } %>
-                    <form action="/inv/update" method="post" id="editInventoryForm">
+                    <form action="/inv/update" method="post" id="updateForm">
                         <fieldset>
                             <p>All fields are required.</p>
                             <label for="classification_id">Classification</label>
@@ -60,10 +60,13 @@
                                     required>
                                 <p>Alphabetic Characters Only</p>
 
-                                <button type="submit">Edit Vehicle</button>
+                                <button type="submit" disabled>Edit Vehicle</button>
 
                                 <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" 
                                 <% } %>>
 
                         </fieldset>
+
+                    <script src="../../js/inv-update.js"></script>
+
                     </form>
