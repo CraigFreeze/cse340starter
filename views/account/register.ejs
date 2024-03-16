@@ -18,7 +18,7 @@
                         <fieldset>
                             <p>All fields are required.</p>
                             <label for="account_firstname">First name:</label>
-                            <input type="text" name="account_firstname" id="accountFirstname" required
+                            <input type="text" name="account_firstname" id="account_firstname" required
                                 value="<%= locals.account_firstname %>">
 
                             <label for="account_lastname">Last name:</label>
@@ -32,7 +32,7 @@
                             <label for="account_password">Password:</label>
                             <input type="password"
                                 pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
-                                name="account_password" required>
+                                name="account_password" id="account_password" required>
                             <p>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter
                                 and 1
                                 special character</p>

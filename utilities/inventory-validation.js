@@ -23,8 +23,65 @@ validate.classificationRules = () => {
     ]
 }
 
+/*  **********************************
+ *  Vehicle Inventory Data Validation Rules
+ * ********************************* */
+validate.inventoryRules = () => {
+    return [
+        body("inv_make") 
+            .trim()
+            .isLength({ min: 3 })
+            .isAlphanumeric()
+            .withMessage("Please Provide a make."),
+
+        body("inv_model") 
+            .trim()
+            .isLength({ min: 3 })
+            .isAlphanumeric()
+            .withMessage("Please Provide a model."), 
+
+        body("inv_year") 
+            .trim()
+            .isLength(4)
+            .withMessage("Please Provide a year.") 
+            .isNumeric(),
+
+        body("inv_description") 
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage("Please Provide a description."), 
+
+        body("inv_image") 
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage("Please Provide a image path."), 
+
+        body("inv_thumbnail") 
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage("Please Provide a thumbnail path."), 
+
+        body("inv_price") 
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage("Please Provide a price."), 
+
+        body("inv_color") 
+            .trim()
+            .isLength({ min: 1 })
+            .isAlpha()
+            .withMessage("Please Provide a color."), 
+
+        body("classification_id") 
+            .trim()
+            .isLength({ min: 1 })
+            .isNumeric()
+            .withMessage("Please Provide a Classification.") 
+    ]
+}
+
 /* ******************************
- * Check data and return errors or continue to registration
+ * Check data and return errors or continue to add classificatoin
  * ***************************** */
 validate.checkInvData = async (req, res, next) => {
     const { classification_name } = req.body
@@ -43,64 +100,6 @@ validate.checkInvData = async (req, res, next) => {
     next()
 }
 
-/*  **********************************
- *  Vehicle Inventory Data Validation Rules
- * ********************************* */
-validate.inventoryRules = () => {
-    return [
-        body("inv_make") //! Replace with database fields
-            .trim()
-            .isLength({ min: 3 })
-            .isAlphanumeric()
-            .withMessage("Please Provide a make."), //! Replace with a better message
-
-        body("inv_model") //! Replace with database fields
-            .trim()
-            .isLength({ min: 3 })
-            .isAlphanumeric()
-            .withMessage("Please Provide a model."), //! Replace with a better message
-
-        body("inv_year") //! Replace with database fields
-            .trim()
-            .isLength(4)
-            .withMessage("Please Provide a year.") //! Replace with a better message
-            .isNumeric(),
-
-        body("inv_description") //! Replace with database fields
-            .trim()
-            .isLength({ min: 1 })
-            .withMessage("Please Provide a description."), //! Replace with a better message
-
-        body("inv_image") //! Replace with database fields
-            .trim()
-            .isLength({ min: 1 })
-            .withMessage("Please Provide a image path."), //! Replace with a better message
-
-        body("inv_thumbnail") //! Replace with database fields
-            .trim()
-            .isLength({ min: 1 })
-            .withMessage("Please Provide a thumbnail path."), //! Replace with a better message,
-
-        body("inv_price") //! Replace with database fields
-            .trim()
-            .isLength({ min: 1 })
-            .withMessage("Please Provide a price."), //! Replace with a better message
-
-        body("inv_color") //! Replace with database fields
-            .trim()
-            .isLength({ min: 1 })
-            .isAlpha()
-            .withMessage("Please Provide a color."), //! Replace with a better message
-
-        body("classification_id") //! Replace with database fields
-            .trim()
-            .isLength({ min: 1 })
-            .isNumeric()
-            .withMessage("Please Provide a Classification.") //! Replace with a better message
-    ]
-}
-
-//! The order of the lists might be need to be in the same order as the form.
 /* ******************************
  * Check data and return errors or continue to registration
  * ***************************** */
@@ -129,7 +128,37 @@ validate.checkInvVehicleData = async (req, res, next) => {
         })
         return
     }
-    next() //! Maybe get rid of this
+    next()
+}
+
+/* ******************************
+ * Check data and return errors or continue to edit view
+ * ***************************** */
+validate.checkUpdateData = async (req, res, next) => {
+    const { inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id, inv_id } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        let selectClassification = await utilities.selectClassification()
+        res.render("inventory/edit-inventory", {
+            errors,
+            title: "Edit Inventory",
+            nav,
+            selectClassification,
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_description,
+            inv_price,
+            inv_miles,
+            inv_color,
+            classification_id,
+            inv_id
+        })
+        return
+    }
+    next()
 }
 
 module.exports = validate
