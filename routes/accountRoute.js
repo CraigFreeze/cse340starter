@@ -35,6 +35,22 @@ router.post(
 // Route to build inventory by classification view
 router.get("/logout", utilities.handleErrors(accountController.logout));
 
+router.get("/update/:account_id", utilities.handleErrors(accountController.buildUpdateAccount));
+// Process Update Account
+router.post(
+    "/accountUpdate",
+    // regValidate.registationRules(),
+    // regValidate.checkRegData,
+    utilities.handleErrors(accountController.updateAccount)
+)
+// Process Password Change
+router.post(
+    "/changePassword",
+    // regValidate.registationRules(),
+    // regValidate.checkRegData,
+    utilities.handleErrors(accountController.changePassword)
+)
+
 module.exports = router;
 
 

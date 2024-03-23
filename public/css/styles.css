@@ -318,6 +318,9 @@ footer p {
 }
 
 /****** FORM Styling ******************/
+form {
+  margin-bottom: 1rem;
+}
 form fieldset {
   width: 80%;
   margin: 0 auto;
