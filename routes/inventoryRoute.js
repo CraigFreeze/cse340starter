@@ -7,8 +7,15 @@ const invValidate = require('../utilities/inventory-validation')
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
+
 router.get("/detail/:invId", utilities.handleErrors(invController.buildByInvId));
-router.get("/", utilities.handleErrors(invController.buildManagement));
+
+router.get(
+    "/", 
+    // utilities.checkLogin,
+    utilities.checkAdminLogin,
+    utilities.handleErrors(invController.buildManagement)
+    );
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
 
 router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView));
@@ -22,7 +29,7 @@ router.post(
 router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification));
 router.post(
     "/add-classification",
-    invValidate.classificationRules(), //! Check why this function gets parenthesis after
+    invValidate.classificationRules(),
     invValidate.checkInvData,
     utilities.handleErrors(invController.addClassification)
 );
@@ -38,8 +45,6 @@ router.post(
 router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteInvConfirmView));
 router.post(
     "/delete",
-    // invValidate.inventoryRules(),
-    // invValidate.checkUpdateData,
     utilities.handleErrors(invController.deleteInventory)
 );
 

@@ -123,6 +123,7 @@ Util.checkJWTToken = (req, res, next) => {
       function (err, accountData) {
         if (err) {
           req.flash("Please log in")
+          console.log("Please Log in ------------------------")
           res.clearCookie("jwt")
           return res.redirect("/account/login")
         }
@@ -146,5 +147,26 @@ Util.checkLogin = (req, res, next) => {
     return res.redirect("/account/login")
   }
 }
+
+/* ****************************************
+ *  Check Admin Login
+ * ************************************ */
+Util.checkAdminLogin = (req, res, next) => {
+  if (res.locals.loggedin && (res.locals.accountData.account_type === "Employee" || res.locals.accountData.account_type === "Admin")) {
+    next()
+  } else {
+    req.flash("notice", "Please log in with correct credentials.")
+    return res.redirect("/account/login")
+  }
+}
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.logout = (req, res, next) => {
+  res.cookie("jwt", "", { maxAge: 1 })
+  res.redirect("/")
+}
+
 
 module.exports = Util

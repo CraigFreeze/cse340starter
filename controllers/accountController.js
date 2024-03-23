@@ -127,4 +127,11 @@ async function buildAccountManagement(req, res, next) {
   })
 }
 
+/* ***************************
+ *  Logout Controller
+ * ************************** */
+async function logout(req, res, next) {
+  utilities.logout();
+}
+
 module.exports = { buildLogin, registerAccount, buildRegister, accountLogin, buildAccountManagement }

@@ -32,4 +32,11 @@ router.post(
     utilities.handleErrors(accountController.registerAccount)
 )
 
+// Route to build inventory by classification view
+router.get("/logout", utilities.handleErrors(accountController.logout));
+
 module.exports = router;
+
+
+
+// ! NOTE TO SELF, ADD THE CHECK FOR ADMIN TO ***ALL**** THE ADMIN VIEWS
