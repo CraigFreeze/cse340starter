@@ -39,15 +39,15 @@ router.get("/update/:account_id", utilities.handleErrors(accountController.build
 // Process Update Account
 router.post(
     "/accountUpdate",
-    // regValidate.registationRules(),
-    // regValidate.checkRegData,
+    regValidate.updateAccountRules(),
+    regValidate.checkUpdateData,
     utilities.handleErrors(accountController.updateAccount)
 )
 // Process Password Change
 router.post(
     "/changePassword",
-    // regValidate.registationRules(),
-    // regValidate.checkRegData,
+    regValidate.updatePasswordRules(),
+    regValidate.checkUpdateData,
     utilities.handleErrors(accountController.changePassword)
 )
 
