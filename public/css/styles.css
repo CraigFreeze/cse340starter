@@ -152,7 +152,7 @@ section.hero-container div .cta {
 /****** Message ***********/
 .notice li,
 .error li {
-  color: red;
+  color: rgb(148, 0, 0);
 }
 
 /******* Footer ***************/
