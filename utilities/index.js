@@ -105,6 +105,42 @@ Util.selectClassification = async function (classification_id = null) {
   return list
 }
 
+/* **************************************
+* Build the classification view HTML
+* ************************************ */
+Util.buildForumComments = async function (data) {
+  let posts
+  console.log(data)
+  if (data.length > 0) {
+    posts = '<div id="comments-display">'
+    data.forEach((comment, index) => { //! the account data and the comment data can't be looped through with a forEach
+      posts += '<div>'
+        posts += '<h2>'
+        posts += account[index].account_firstname + account[index].account_lastname
+        posts += '</h2>'
+        posts += '<p>'
+        posts += data.comment_content
+        posts += '</p>'
+      posts += '</div>'
+    })
+    posts += '</div>'
+  } else {
+    posts += '<p class="notice">Be the first to start a discussion!</p>'
+  }
+  // ! ADD HIDDEN FIELDS THAT INCLUDE DATE AND ACCOUNT ID
+  posts += '<form id="commentForm" action="/forum/comment" method="post">'
+    posts += '<label for="comment_content">'
+    posts += 'Comment:'
+    posts += '</label>'
+    posts += '<textarea type="text" name="comment_content" id="comment_content">'
+    posts += '</textarea>'
+    posts += '<button type="submit">'
+    posts += 'Post'
+    posts += '</button>'
+  posts += '</form>'
+  return posts
+}
+
 /* ****************************************
 * Middleware For Handling Errors
 * Wrap other function in this for 
