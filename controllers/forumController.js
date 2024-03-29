@@ -2,8 +2,6 @@
 
 const utilities = require("../utilities")
 const forumModel = require("../models/forum-model")
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
 
@@ -13,12 +11,8 @@ require("dotenv").config()
  * ************************** */
 async function buildForum(req, res, next) {
   let nav = await utilities.getNav()
-  console.log("here")
   const commentData = await forumModel.getAllComments();
-  // const accountData = await forumModel.getAccountById(commentData.account_id)
-  console.log(commentData)
-  // console.log(accountData)
-  const posts = await utilities.buildForumComments(commentData)
+  const posts = await utilities.buildForumComments(commentData, res.locals.accountData.account_id)
   res.render("forum/home", {
     title: "Car Forum",
     nav,
@@ -37,10 +31,9 @@ async function postComment (req, res, next) {
 
   let nav = await utilities.getNav() //consider moving this after the regResult
 
-  const commentData = await forumModel.getCommentById(data.account_id)
-  const accountData = await forumModel.getAccountById(data.account_id)
-  console.log(commentData, accountData)
-  const posts = await utilities.commentData(commentData, accountData)
+  const commentData = await forumModel.getAllComments();
+
+  const posts = await utilities.buildForumComments(commentData, res.locals.accountData.account_id)
   // ! MAKE IT SO THAT THE COMMENT FORM IS STICKY WHEN THERE IS AN ERROR
 
   if (postResult) {
@@ -65,4 +58,20 @@ async function postComment (req, res, next) {
   }
 }
 
-module.exports = { buildForum, postComment }
+/* ***************************
+ *  Deliver View
+ *  Forum Managment
+ * ************************** */
+async function buildForumManagement(req, res, next) {
+  let nav = await utilities.getNav()
+  const commentData = await forumModel.getAllComments();
+  const posts = await utilities.postManagementGrid(commentData, res.locals.accountData)
+  res.render("forum/manage", {
+    title: "Car Forum",
+    nav,
+    errors: null,
+    posts
+  })
+}
+
+module.exports = { buildForum, postComment, buildForumManagement }

@@ -6,13 +6,19 @@ const utilities = require("../utilities")
 // const forumValidate = require('../utilities/forum-validation')
 // ! Add middleware to make sure the user is logged in
 
-// Route to account management view
+
+// Route to forum comment management view
 router.get("/",
+    utilities.checkLogin,
+    utilities.handleErrors(forumController.buildForumManagement)
+);
+
+// Route to forum view
+router.get("/comment",
     utilities.checkLogin,
     utilities.handleErrors(forumController.buildForum)
 );
-
-// Process the login attempt
+// Process a comment post attempt
 router.post(
     "/comment",
     // forumValidate.loginRules(),
