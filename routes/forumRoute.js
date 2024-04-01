@@ -26,6 +26,32 @@ router.post(
     utilities.handleErrors(forumController.postComment)
 )
 
+// Route to forum view
+router.get("/edit",
+    utilities.checkLogin,
+    utilities.handleErrors(forumController.buildForum)
+);
+// Process a comment post attempt
+router.post(
+    "/edit",
+    // forumValidate.loginRules(),
+    // forumValidate.checkLoginData,
+    utilities.handleErrors(forumController.postComment)
+)
+
+// Route to forum view
+router.get("/delete",
+    utilities.checkLogin,
+    utilities.handleErrors(forumController.buildForum)
+);
+// Process a comment post attempt
+router.post(
+    "/delete",
+    // forumValidate.loginRules(),
+    // forumValidate.checkLoginData,
+    utilities.handleErrors(forumController.postComment)
+)
+
 module.exports = router;
 
 // ! NOTE TO SELF, ADD THE CHECK FOR ADMIN TO ***ALL**** THE ADMIN VIEWS

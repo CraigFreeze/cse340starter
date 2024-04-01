@@ -179,16 +179,16 @@ Util.postManagementGrid = async function (comments, accountData) {
       dataTable += `<tr><td>${comment.account_firstname} ${comment.account_lastname}</td>`;
       dataTable += `<td>${comment.comment_content}</td>`;
       dataTable += `<td>${comment.comment_date.toLocaleDateString()}</td>`;
-      dataTable += `<td><a href='/inv/edit/${comment.comment_id}' title='Click to update'>Modify</a></td>`;
-      dataTable += `<td><a href='/inv/delete/${comment.comment_id}' title='Click to delete'>Delete</a></td></tr>`;
+      dataTable += `<td><a href='/forum/edit/${comment.comment_id}' title='Click to update'>Modify</a></td>`;
+      dataTable += `<td><a href='/forum/delete/${comment.comment_id}' title='Click to delete'>Delete</a></td></tr>`;
     } else if (!(comment.account_id === accountData.account_id)) {
       return
     } else {
       dataTable += `<tr><td>${comment.account_firstname} ${comment.account_lastname}</td>`;
       dataTable += `<td>${comment.comment_content}</td>`;
       dataTable += `<td>${comment.comment_date.toLocaleDateString()}</td>`;
-      dataTable += `<td><a href='/inv/edit/${comment.comment_id}' title='Click to update'>Modify</a></td>`;
-      dataTable += `<td><a href='/inv/delete/${comment.comment_id}' title='Click to delete'>Delete</a></td></tr>`;
+      dataTable += `<td><a href='/forum/edit/${comment.comment_id}' title='Click to update'>Modify</a></td>`;
+      dataTable += `<td><a href='/forum/delete/${comment.comment_id}' title='Click to delete'>Delete</a></td></tr>`;
     }
   })
   dataTable += '</tbody>';
