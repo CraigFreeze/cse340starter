@@ -132,7 +132,7 @@ Util.buildForumComments = async function (data, accountData) {
 
       if (accountData.account_type === "Admin" || (accountData.account_id === comment.account_id)) {
         posts += '<form action="/forum/delete" method="post">'
-        posts += '<input type="hidden" name="comment_id" value=' + comment.comment_id + '">'
+        posts += '<input type="hidden" name="comment_id" value="' + comment.comment_id + '">'
         posts += '<button type="submit" class="delete-btn">Delete</button>'
         posts += '</form>'
       }
@@ -142,43 +142,8 @@ Util.buildForumComments = async function (data, accountData) {
   } else {
     posts += '<p class="notice">Be the first to start a discussion!</p>'
   }
-  // ! ADD HIDDEN FIELDS THAT INCLUDE DATE AND ACCOUNT ID
 
   return posts
-}
-
-// Build inventory items into HTML table components and inject into DOM 
-Util.postManagementGrid = async function (comments, accountData) {
-  // let inventoryDisplay = document.getElementById("inventoryDisplay");
-  // Set up the table labels 
-  let dataTable = '<thead>';
-  dataTable += '<tr><th>Person</th><td>Comment</td><td>Date</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
-  dataTable += '</thead>';
-  // Set up the table body 
-  dataTable += '<tbody>';
-
-  // Iterate over all vehicles in the array and put each in a row 
-  comments.forEach(function (comment) {
-    if (accountData.account_type === "Admin") {
-      dataTable += `<tr><td>${comment.account_firstname} ${comment.account_lastname}</td>`;
-      dataTable += `<td>${comment.comment_content}</td>`;
-      dataTable += `<td>${comment.comment_date.toLocaleDateString()}</td>`;
-      dataTable += `<td><a href='/forum/edit/${comment.comment_id}' title='Click to update'>Modify</a></td>`;
-      dataTable += `<td><a href='/forum/delete/${comment.comment_id}' title='Click to delete'>Delete</a></td></tr>`;
-    } else if (!(comment.account_id === accountData.account_id)) {
-      return
-    } else {
-      dataTable += `<tr><td>${comment.account_firstname} ${comment.account_lastname}</td>`;
-      dataTable += `<td>${comment.comment_content}</td>`;
-      dataTable += `<td>${comment.comment_date.toLocaleDateString()}</td>`;
-      dataTable += `<td><a href='/forum/edit/${comment.comment_id}' title='Click to update'>Modify</a></td>`;
-      dataTable += `<td><a href='/forum/delete/${comment.comment_id}' title='Click to delete'>Delete</a></td></tr>`;
-    }
-  })
-  dataTable += '</tbody>';
-  return dataTable;
-  // Display the contents in the Inventory Management view 
-  // inventoryDisplay.innerHTML = dataTable;
 }
 
 /* ****************************************

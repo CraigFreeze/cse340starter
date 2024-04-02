@@ -12,7 +12,7 @@
                         <label for="comment_content">
                             Comment:
                         </label>
-                        <textarea minlength="1" name="comment_content" id="comment_content" <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+                        <textarea minlength="1" name="comment_content" id="comment_content" <% if(locals.comment_content) { %> value="<%= locals.comment_content %>"
                             <% } %> required>
  </textarea>
                         <input type="hidden" name="comment_date" value="<%- currentDate %>">
