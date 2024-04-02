@@ -12,20 +12,23 @@ validate.commentRules = () => {
         body("comment_content")
             .trim()
             .isLength({ min: 1 })
-            .withMessage("Please comment.") // on error this message is sent.
-            .isAscii(),
+            .isAscii()
+            .withMessage("Please provide content for your comment that is also valid ascii characters.") // on error this message is sent.
+        ,
 
         body("comment_date")
             .trim()
             .isLength({ min: 1 })
-            .withMessage("Please comment.") // on error this message is sent.
-            .isISO8601().toDate(),
+            .isISO8601().toDate()
+            .withMessage("Pleas use a valid date format.") // on error this message is sent.
+        ,
 
         body("account_id")
             .trim()
             .isLength({ min: 1 })
-            .withMessage("Please comment.") // on error this message is sent.
             .isInt()
+            .withMessage("Please provide a valid account number.") // on error this message is sent.
+
     ]
 }
 
@@ -34,20 +37,21 @@ validate.commentRules = () => {
  * ***************************** */
 validate.checkCommentData = async (req, res, next) => {
     ("here2")
-    const { comment_content, comment_date, account_id } = req.body
+    const { comment_content, account_id } = req.body
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav()
         const commentData = await forumModel.getAllComments();
         const posts = await utilities.buildForumComments(commentData, res.locals.accountData)
+
         res.render("forum/home", {
             title: "Car Forum",
             nav,
             errors,
             posts,
             account_id: account_id,
-            currentDate: comment_date,
+            currentDate: new Date().toISOString().substring(0, 10),
             comment_content
         })
         return

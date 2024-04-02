@@ -20,7 +20,8 @@ async function buildForum(req, res, next) {
     errors: null,
     posts,
     account_id: res.locals.accountData.account_id,
-    currentDate
+    currentDate,
+    comment_content: ""
   })
 }
 
