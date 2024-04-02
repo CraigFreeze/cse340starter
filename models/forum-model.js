@@ -68,7 +68,8 @@ async function getAllComments() {
         const data = await pool.query(
             `SELECT * FROM public.comment AS c 
             JOIN public.account AS a 
-            ON c.account_id = a.account_id`,
+            ON c.account_id = a.account_id 
+            ORDER BY c.comment_id`,
             []
         )
         return data.rows

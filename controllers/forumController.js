@@ -12,12 +12,15 @@ require("dotenv").config()
 async function buildForum(req, res, next) {
   let nav = await utilities.getNav()
   const commentData = await forumModel.getAllComments();
-  const posts = await utilities.buildForumComments(commentData, res.locals.accountData.account_id)
+  const posts = await utilities.buildForumComments(commentData, res.locals.accountData)
+  const currentDate = new Date().toISOString().substring(0, 10);
   res.render("forum/home", {
     title: "Car Forum",
     nav,
     errors: null,
-    posts
+    posts,
+    account_id: res.locals.accountData.account_id,
+    currentDate
   })
 }
 
@@ -28,33 +31,50 @@ async function postComment (req, res, next) {
   const { comment_content, comment_date, account_id } = req.body
 
   const postResult = await forumModel.addComment(comment_content, comment_date, account_id)
-
-  let nav = await utilities.getNav() //consider moving this after the regResult
-
-  const commentData = await forumModel.getAllComments();
-
-  const posts = await utilities.buildForumComments(commentData, res.locals.accountData.account_id)
-  // ! MAKE IT SO THAT THE COMMENT FORM IS STICKY WHEN THERE IS AN ERROR
-
   if (postResult) {
     req.flash(
       "notice",
       `You've successfully posted!`
     )
-    res.status(201).render("forum/home", {
-      title: "Car Forum",
-      nav,
-      errors: null,
-      posts
-    })
+    res.status(201).redirect("/forum/comment")
+    // res.status(201).render("forum/home", {
+    //   title: "Car Forum",
+    //   nav,
+    //   errors: null,
+    //   posts,
+    //   account_id: res.locals.accountData.account_id,
+    //   currentDate
+    // })
   } else {
     req.flash("notice", "Sorry, the comment post failed.")
-    res.status(501).render("forum/home", {
-      title: "Car Forum",
-      nav,
-      errors: null,
-      posts
-    })
+    res.status(501).redirect("/forum/comment")
+    // res.status(501).render("forum/home", {
+    //   title: "Car Forum",
+    //   nav,
+    //   errors: null,
+    //   posts,
+    //   account_id: res.locals.accountData.account_id,
+    //   currentDate
+    // })
+  }
+}
+
+/* ***************************
+ *  Delete Forum Content
+ * ************************** */
+async function deleteComment (req, res, next) {
+  let nav = await utilities.getNav()
+  let { comment_id } = req.body
+  comment_id = parseInt(comment_id);
+
+  const deleteResult = await forumModel.deleteComment(comment_id)
+
+  if (deleteResult) {
+    req.flash("notice", `The delete was successful.`)
+    res.redirect("/forum/comment")
+  } else {
+    req.flash("notice", "Sorry, the insert failed.")
+    res.redirect(`/forum/comment`)
   }
 }
 
@@ -74,4 +94,4 @@ async function buildForumManagement(req, res, next) {
   })
 }
 
-module.exports = { buildForum, postComment, buildForumManagement }
+module.exports = { buildForum, postComment, deleteComment, buildForumManagement }

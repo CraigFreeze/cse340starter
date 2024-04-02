@@ -180,10 +180,7 @@ async function updateAccount(req, res) {
 
   if (modelResult) {
     const accountData = await accountModel.getAccountByEmail(account_email)
-    console.log("here")
-    console.log(accountData)
     const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
-    console.log(accessToken)
     if (process.env.NODE_ENV === 'development') {
       res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
     } else {

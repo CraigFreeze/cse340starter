@@ -5,6 +5,20 @@ const accountController = require("../controllers/accountController")
 const utilities = require("../utilities/")
 const regValidate = require('../utilities/account-validation')
 
+// account_firstname: Basic
+// account_lastname: Client
+// account_email: basic@340.edu
+// account_password: I@mABas1cCl!3nt
+
+// account_firstname: Happy
+// account_lastname: Employee
+// account_email: happy@340.edu
+// account_password: I@mAnEmpl0y33
+
+// account_firstname: Manager
+// account_lastname: User
+// account_email: manager@340.edu
+// account_password: I@mAnAdm!n1strat0r
 
 // Route to account management view
 router.get("/",
@@ -52,7 +66,3 @@ router.post(
 )
 
 module.exports = router;
-
-
-
-// ! NOTE TO SELF, ADD THE CHECK FOR ADMIN TO ***ALL**** THE ADMIN VIEWS

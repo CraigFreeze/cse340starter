@@ -86,7 +86,7 @@ invCont.addClassification = async function (req, res, next) {
     })
   } else {
 
-    req.flash("notice", "Sorry, the registration failed.")
+    req.flash("notice", "Sorry, the add classificatoin failed.")
     res.status(501).render("./inventory/add-classification", {
       title: "Add Classification",
       nav,

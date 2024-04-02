@@ -108,16 +108,10 @@ Util.selectClassification = async function (classification_id = null) {
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
-Util.buildForumComments = async function (data, account_id) {
-  let posts
-  const currentDate = new Date().toISOString();
-  console.log(data)
+Util.buildForumComments = async function (data, accountData) {
+  let posts = '';
   if (data.length > 0) {
-    posts = '<div class=post-container>'
-    data.forEach((comment, index) => { //! the account data and the comment data can't be looped through with a forEach
-      console.log("TEST")
-      console.log(comment)
-      console.log("TEST")
+    data.forEach((comment) => { //! the account data and the comment data can't be looped through with a forEach
       posts += '<div class="comments-display">'
       posts += '<div class="comments-header">'
       posts += '<div>'
@@ -135,29 +129,20 @@ Util.buildForumComments = async function (data, account_id) {
       posts += '<p>'
       posts += comment.comment_content
       posts += '</p>'
+
+      if (accountData.account_type === "Admin" || (accountData.account_id === comment.account_id)) {
+        posts += '<form action="/forum/delete" method="post">'
+        posts += '<input type="hidden" name="comment_id" value=' + comment.comment_id + '">'
+        posts += '<button type="submit" class="delete-btn">Delete</button>'
+        posts += '</form>'
+      }
+
       posts += '</div>'
     })
   } else {
     posts += '<p class="notice">Be the first to start a discussion!</p>'
   }
   // ! ADD HIDDEN FIELDS THAT INCLUDE DATE AND ACCOUNT ID
-  posts += '<hr>'
-  posts += '<form id="commentForm" action="/forum/comment" method="post">'
-  posts += '<label for="comment_content">'
-  posts += 'Comment:'
-  posts += '</label>'
-  posts += '<textarea name="comment_content" id="comment_content">'
-  posts += '</textarea>'
-  posts += '<input type="hidden" name="comment_date" value="' + currentDate + '" >'
-  posts += '<input type="hidden" name="account_id" value="' + account_id + '">'
-  posts += '<button type="submit" class="submit">'
-  posts += 'Post'
-  posts += '</button>'
-  posts += '<a href="/forum" class="submit">'
-  posts += 'Manage Comments'
-  posts += '</a>'
-  posts += '</form>'
-  posts += '</div>'
 
   return posts
 }
@@ -171,8 +156,7 @@ Util.postManagementGrid = async function (comments, accountData) {
   dataTable += '</thead>';
   // Set up the table body 
   dataTable += '<tbody>';
-  console.log("accountData")
-  console.log(accountData)
+
   // Iterate over all vehicles in the array and put each in a row 
   comments.forEach(function (comment) {
     if (accountData.account_type === "Admin") {
